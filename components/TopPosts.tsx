@@ -1,0 +1,90 @@
+"use client"
+import { useState, useEffect } from "react"
+import { fetchTopPosts } from "@/lib/api"
+import { FilterProps, Post } from "@/types"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Skeleton } from "@/components/ui/skeleton"
+import { cn } from "@/lib/utils"
+
+function PostSkeleton() {
+  return (
+    <Card className="bg-zinc-900 border-zinc-800">
+      <CardContent className="p-4">
+        <Skeleton className="h-3 w-16 mb-3 bg-zinc-800" />
+        <Skeleton className="h-3 w-full mb-2 bg-zinc-800" />
+        <Skeleton className="h-3 w-3/4 mb-4 bg-zinc-800" />
+        <div className="flex gap-4 pt-2 border-t border-zinc-800">
+          <Skeleton className="h-6 w-16 bg-zinc-800" />
+          <Skeleton className="h-6 w-16 bg-zinc-800" />
+          <Skeleton className="h-6 w-16 bg-zinc-800" />
+        </div>
+      </CardContent>
+    </Card>
+  )
+}
+
+function Stat({ label, value }: { label: string; value: string | number }) {
+  return (
+    <div className="flex flex-col gap-0.5">
+      <span className="text-[14px] font-medium text-zinc-100">{value}</span>
+      <span className="text-[11px] text-zinc-600">{label}</span>
+    </div>
+  )
+}
+
+export default function TopPosts({ brand, channel, period }: FilterProps) {
+  const [posts,   setPosts]   = useState<Post[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    setLoading(true)
+    fetchTopPosts({ brand, channel, period, limit: 6 })
+      .then(setPosts)
+      .finally(() => setLoading(false))
+  }, [brand, channel, period])
+
+  if (loading) return (
+    <div className="grid grid-cols-3 gap-3">
+      {[0, 1, 2, 3, 4, 5].map((i) => <PostSkeleton key={i} />)}
+    </div>
+  )
+
+  return (
+    <div className="grid grid-cols-3 gap-3">
+      {posts.map((post) => (
+        <a
+          key={post.id}
+          href={post.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group"
+        >
+          <Card className="bg-zinc-900 border-zinc-800 h-full group-hover:border-zinc-700 transition-colors">
+            <CardContent className="p-4 flex flex-col gap-3 h-full">
+              <Badge
+                variant="outline"
+                className={cn(
+                  "w-fit text-[10px] border",
+                  post.channel === "lin"
+                    ? "border-[#0a66c2]/40 text-[#4d9fd6] bg-[#0a66c2]/10"
+                    : "border-zinc-700 text-zinc-400 bg-zinc-800"
+                )}
+              >
+                {post.channel === "lin" ? "LinkedIn" : "X"}
+              </Badge>
+              <p className="text-[12px] text-zinc-400 leading-relaxed line-clamp-3 flex-1">
+                {post.text}
+              </p>
+              <div className="flex gap-4 pt-2 border-t border-zinc-800 mt-auto">
+                <Stat label="Impressions" value={post.impressions.toLocaleString()} />
+                <Stat label="Likes"       value={post.likes.toLocaleString()} />
+                <Stat label="Eng."        value={`${post.engagement_rate.toFixed(1)}%`} />
+              </div>
+            </CardContent>
+          </Card>
+        </a>
+      ))}
+    </div>
+  )
+}

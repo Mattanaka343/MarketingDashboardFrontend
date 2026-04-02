@@ -1,18 +1,38 @@
-import { Button } from "@/components/ui/button"
+"use client"
+import { useState } from "react"
+import { Brand, Channel, Period, Section } from "@/types"
+import Sidebar         from "@/components/Sidebar"
+import Topbar          from "@/components/Topbar"
+import OverviewSection from "@/components/sections/OverviewSection"
+import PostsSection    from "@/components/sections/PostsSection"
 
-export default function Page() {
+export default function DashboardPage() {
+  const [brand,   setBrand]   = useState<Brand>("nvai")
+  const [channel, setChannel] = useState<Channel>("all")
+  const [period,  setPeriod]  = useState<Period>("90d")
+  const [section, setSection] = useState<Section>("overview")
+
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+    <div className="flex h-screen bg-zinc-950 text-zinc-100 overflow-hidden">
+      <Sidebar
+        brand={brand}     onBrandChange={setBrand}
+        channel={channel} onChannelChange={setChannel}
+        section={section} onSectionChange={setSection}
+      />
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <Topbar
+          section={section}
+          period={period}
+          onPeriodChange={setPeriod}
+        />
+        <main className="flex-1 overflow-y-auto p-6">
+          {section === "overview" && (
+            <OverviewSection brand={brand} channel={channel} period={period} />
+          )}
+          {section === "posts" && (
+            <PostsSection brand={brand} channel={channel} period={period} />
+          )}
+        </main>
       </div>
     </div>
   )
