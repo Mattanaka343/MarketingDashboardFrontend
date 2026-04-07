@@ -6,7 +6,14 @@ import { Brand, Channel, ClusterPoint } from "@/types"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 
-const PALETTE = ["#e05252", "#c0392b", "#f0a0a0", "#922b21", "#f1948a", "#e74c3c"]
+const PALETTE = [
+  "#5A0000", // very dark red
+  "#8B0000", // dark red
+  "#C0392B", // strong red
+  "#E74C3C", // bright red
+  "#FF6B6B", // soft vibrant red
+  "#FFB3B3"  // light pastel red
+]
 
 function clusterColor(label: string, allLabels: string[]): string {
   return PALETTE[allLabels.indexOf(label) % PALETTE.length]

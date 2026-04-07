@@ -8,7 +8,7 @@ import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } f
 import { Skeleton } from "@/components/ui/skeleton"
 
 const chartConfig = {
-  followers: { label: "Followers", color: "#e05252" },
+  followers: { label: "Followers", color: "#7d0b0b" },
 } satisfies ChartConfig
 
 export default function FollowersChart({ brand, channel, period }: FilterProps) {
@@ -38,7 +38,7 @@ export default function FollowersChart({ brand, channel, period }: FilterProps) 
               <XAxis dataKey="week_start" tickLine={false} axisLine={false} tick={{ fill: "#71717a", fontSize: 12 }} tickFormatter={(v) => v.slice(5)} />
               <YAxis tickLine={false} axisLine={false} tick={{ fill: "#71717a", fontSize: 13 }} width={36} />
               <ChartTooltip content={<ChartTooltipContent />} cursor={false} />
-              <Bar dataKey="followers" fill="#e05252" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="followers" fill="#7d0b0b" radius={[3, 3, 0, 0]} />
             </BarChart>
           </ChartContainer>
         )}

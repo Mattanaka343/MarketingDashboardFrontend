@@ -16,8 +16,8 @@ const METRICS: { value: Metric; label: string }[] = [
 ]
 
 const chartConfig = {
-  linkedin: { label: "LinkedIn", color: "#e05252" },
-  x:        { label: "X",        color: "#f0a0a0" },
+  linkedin: { label: "LinkedIn", color: "#7d0b0b" },
+  x:        { label: "X",        color: "#b83535" },
 } satisfies ChartConfig
 
 export default function TimelineChart({ brand, channel, period }: FilterProps) {
@@ -66,12 +66,12 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="fillLinkedin" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#e05252" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#e05252" stopOpacity={0.0} />
+                  <stop offset="5%"  stopColor="#7d0b0b" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#7d0b0b" stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="fillX" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="#f0a0a0" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#f0a0a0" stopOpacity={0.0} />
+                  <stop offset="5%"  stopColor="#b83535" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#b83535" stopOpacity={0.0} />
                 </linearGradient>
               </defs>
               <CartesianGrid vertical={false} stroke="#27272a" />
@@ -94,9 +94,9 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
                   />
                 }
               />
-              <Area dataKey="linkedin" type="natural" fill="url(#fillLinkedin)" stroke="#e05252" strokeWidth={2} />
+              <Area dataKey="linkedin" type="natural" fill="url(#fillLinkedin)" stroke="#7d0b0b" strokeWidth={2} />
               {showX && (
-                <Area dataKey="x" type="natural" fill="url(#fillX)" stroke="#f0a0a0" strokeWidth={2} />
+                <Area dataKey="x" type="natural" fill="url(#fillX)" stroke="#b83535" strokeWidth={2} />
               )}
               <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>
