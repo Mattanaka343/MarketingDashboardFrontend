@@ -19,9 +19,9 @@ interface TopbarProps {
 
 export default function Topbar({ section, period, onPeriodChange }: TopbarProps) {
   return (
-    <header className="flex items-center justify-between px-6 py-3 border-b border-zinc-800 bg-zinc-950 flex-shrink-0">
-      <h1 className="text-[15px] font-medium text-zinc-100 capitalize">{section}</h1>
-      <div className="flex items-center gap-1 bg-zinc-900 border border-zinc-800 rounded-lg p-1">
+    <header className="flex items-center justify-between px-6 py-3 border-b border-border bg-background flex-shrink-0">
+      <h1 className="text-[15px] font-medium text-foreground capitalize">{section}</h1>
+      <div className="flex items-center gap-1 bg-card border border-border rounded-lg p-1">
         {PERIODS.map((p) => (
           <Button
             key={p.value}
@@ -31,8 +31,8 @@ export default function Topbar({ section, period, onPeriodChange }: TopbarProps)
             className={cn(
               "h-7 px-3 text-[12px] rounded-md",
               period === p.value
-                ? "bg-zinc-700 text-zinc-100 hover:bg-zinc-700"
-                : "text-zinc-500 hover:text-zinc-300"
+                ? "bg-zinc-700 text-foreground hover:bg-zinc-700"
+                : "text-muted-foreground hover:text-foreground/80"
             )}
           >
             {p.label}

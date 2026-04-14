@@ -37,21 +37,21 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
   const metricLabel = METRICS.find((m) => m.value === metric)?.label ?? "Impressions"
 
   return (
-    <Card className="bg-zinc-900 border-zinc-800 pt-0">
-      <CardHeader className="flex items-center gap-2 space-y-0 border-b border-zinc-800 py-4 sm:flex-row">
+    <Card className="bg-card border-border pt-0">
+      <CardHeader className="flex items-center gap-2 space-y-0 border-b border-border py-4 sm:flex-row">
         <div className="grid flex-1 gap-1">
-          <CardTitle className="text-zinc-100 text-[15px]">Performance over time</CardTitle>
-          <CardDescription className="text-zinc-500 text-[13px]">
+          <CardTitle className="text-foreground text-[15px]">Performance over time</CardTitle>
+          <CardDescription className="text-muted-foreground text-[13px]">
             {metricLabel} — last {period}
           </CardDescription>
         </div>
         <Select value={metric} onValueChange={(v) => setMetric(v as Metric)}>
-          <SelectTrigger className="w-[170px] rounded-lg bg-zinc-800 border-zinc-700 text-zinc-300 text-[13px]">
+          <SelectTrigger className="w-[170px] rounded-lg bg-muted border-border text-foreground/80 text-[13px]">
             <SelectValue placeholder="Impressions" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl bg-zinc-900 border-zinc-700">
+          <SelectContent className="rounded-xl bg-card border-border">
             {METRICS.map((m) => (
-              <SelectItem key={m.value} value={m.value} className="text-zinc-300 text-[13px] rounded-lg">
+              <SelectItem key={m.value} value={m.value} className="text-foreground/80 text-[13px] rounded-lg">
                 {m.label}
               </SelectItem>
             ))}
@@ -60,7 +60,7 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
         {loading ? (
-          <Skeleton className="h-[250px] w-full bg-zinc-800 rounded-lg" />
+          <Skeleton className="h-[250px] w-full bg-muted rounded-lg" />
         ) : (
           <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
             <AreaChart data={data}>

@@ -13,7 +13,7 @@ export default function DashboardPage() {
   const [section, setSection] = useState<Section>("overview")
 
   return (
-    <div className="flex h-screen bg-zinc-950 text-zinc-100 overflow-hidden">
+    <div className="flex h-screen bg-background text-foreground overflow-hidden">
       <Sidebar
         brand={brand}     onBrandChange={setBrand}
         channel={channel} onChannelChange={setChannel}

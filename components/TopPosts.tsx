@@ -9,15 +9,15 @@ import { cn } from "@/lib/utils"
 
 function PostSkeleton() {
   return (
-    <Card className="bg-zinc-900 border-zinc-800">
+    <Card className="bg-card border-border">
       <CardContent className="p-4">
-        <Skeleton className="h-3 w-16 mb-3 bg-zinc-800" />
-        <Skeleton className="h-3 w-full mb-2 bg-zinc-800" />
-        <Skeleton className="h-3 w-3/4 mb-4 bg-zinc-800" />
-        <div className="flex gap-4 pt-2 border-t border-zinc-800">
-          <Skeleton className="h-6 w-16 bg-zinc-800" />
-          <Skeleton className="h-6 w-16 bg-zinc-800" />
-          <Skeleton className="h-6 w-16 bg-zinc-800" />
+        <Skeleton className="h-3 w-16 mb-3 bg-muted" />
+        <Skeleton className="h-3 w-full mb-2 bg-muted" />
+        <Skeleton className="h-3 w-3/4 mb-4 bg-muted" />
+        <div className="flex gap-4 pt-2 border-t border-border">
+          <Skeleton className="h-6 w-16 bg-muted" />
+          <Skeleton className="h-6 w-16 bg-muted" />
+          <Skeleton className="h-6 w-16 bg-muted" />
         </div>
       </CardContent>
     </Card>
@@ -27,8 +27,8 @@ function PostSkeleton() {
 function Stat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className="text-[14px] font-medium text-zinc-100">{value}</span>
-      <span className="text-[11px] text-zinc-600">{label}</span>
+      <span className="text-[14px] font-medium text-foreground">{value}</span>
+      <span className="text-[11px] text-muted-foreground/70">{label}</span>
     </div>
   )
 }
@@ -60,7 +60,7 @@ export default function TopPosts({ brand, channel, period }: FilterProps) {
           rel="noopener noreferrer"
           className="group"
         >
-          <Card className="bg-zinc-900 border-zinc-800 h-full group-hover:border-zinc-700 transition-colors">
+          <Card className="bg-card border-border h-full group-hover:border-border transition-colors">
             <CardContent className="p-4 flex flex-col gap-3 h-full">
               <Badge
                 variant="outline"
@@ -68,15 +68,15 @@ export default function TopPosts({ brand, channel, period }: FilterProps) {
                   "w-fit text-[10px] border",
                   post.channel === "lin"
                     ? "border-[#0a66c2]/40 text-[#4d9fd6] bg-[#0a66c2]/10"
-                    : "border-zinc-700 text-zinc-400 bg-zinc-800"
+                    : "border-border text-muted-foreground bg-muted"
                 )}
               >
                 {post.channel === "lin" ? "LinkedIn" : "X"}
               </Badge>
-              <p className="text-[12px] text-zinc-400 leading-relaxed line-clamp-3 flex-1">
+              <p className="text-[12px] text-muted-foreground leading-relaxed line-clamp-3 flex-1">
                 {post.text}
               </p>
-              <div className="flex gap-4 pt-2 border-t border-zinc-800 mt-auto">
+              <div className="flex gap-4 pt-2 border-t border-border mt-auto">
                 <Stat label="Impressions" value={post.impressions.toLocaleString()} />
                 <Stat label="Likes"       value={post.likes.toLocaleString()} />
                 <Stat label="Eng."        value={`${post.engagement_rate.toFixed(1)}%`} />

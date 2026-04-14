@@ -84,14 +84,14 @@ export default function Sidebar({
     <TooltipProvider delayDuration={200}>
       <aside
         className={cn(
-          "flex-shrink-0 flex flex-col bg-zinc-950 border-r border-zinc-800 py-4 transition-all duration-300 ease-in-out relative",
+          "flex-shrink-0 flex flex-col bg-background border-r border-border py-4 transition-all duration-300 ease-in-out relative",
           collapsed ? "w-[64px]" : "w-[240px]"
         )}
       >
         {/* Collapse toggle */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-6 w-6 h-6 bg-zinc-800 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700 transition-colors z-10"
+          className="absolute -right-3 top-6 w-6 h-6 bg-muted border border-border rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-zinc-700 transition-colors z-10"
         >
           {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
         </button>
@@ -99,7 +99,7 @@ export default function Sidebar({
         {/* ── BRANDS */}
         <div className="px-3 mb-4">
           {!collapsed && (
-            <p className="text-[11px] text-zinc-600 uppercase tracking-widest mb-2 px-1">Brand</p>
+            <p className="text-[11px] text-muted-foreground/70 uppercase tracking-widest mb-2 px-1">Brand</p>
           )}
           <div className="flex flex-col gap-1">
             {BRANDS.map((b) => (
@@ -111,8 +111,8 @@ export default function Sidebar({
                       "flex items-center rounded-lg transition-colors border",
                       collapsed ? "w-10 h-10 justify-center mx-auto p-0" : "gap-3 px-2 py-2 w-full",
                       brand === b.value
-                        ? "bg-zinc-800 border-zinc-600 text-zinc-100"
-                        : "border-transparent text-zinc-500 hover:bg-zinc-800/60 hover:text-zinc-300"
+                        ? "bg-muted border-border text-foreground"
+                        : "border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground/80"
                     )}
                   >
                     <div className={cn(
@@ -132,7 +132,7 @@ export default function Sidebar({
                   </button>
                 </TooltipTrigger>
                 {collapsed && (
-                  <TooltipContent side="right" className="bg-zinc-800 text-zinc-100 border-zinc-700 text-[13px]">
+                  <TooltipContent side="right" className="bg-muted text-foreground border-border text-[13px]">
                     {b.label}
                   </TooltipContent>
                 )}
@@ -141,12 +141,12 @@ export default function Sidebar({
           </div>
         </div>
 
-        <Separator className="mx-3 mb-4 bg-zinc-800" style={{ width: "auto" }} />
+        <Separator className="mx-3 mb-4 bg-muted" style={{ width: "auto" }} />
 
         {/* ── CHANNELS */}
         <div className="px-3 mb-4">
           {!collapsed && (
-            <p className="text-[11px] text-zinc-600 uppercase tracking-widest mb-2 px-1">Channel</p>
+            <p className="text-[11px] text-muted-foreground/70 uppercase tracking-widest mb-2 px-1">Channel</p>
           )}
           <div className="flex flex-col gap-1">
             {availableChannels.map((c) => (
@@ -158,8 +158,8 @@ export default function Sidebar({
                       "flex items-center rounded-lg transition-colors border",
                       collapsed ? "w-10 h-10 justify-center mx-auto p-0" : "gap-3 px-2 py-2 w-full",
                       channel === c.value
-                        ? "bg-zinc-800 border-zinc-600 text-zinc-100"
-                        : "border-transparent text-zinc-500 hover:bg-zinc-800/60 hover:text-zinc-300"
+                        ? "bg-muted border-border text-foreground"
+                        : "border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground/80"
                     )}
                   >
                     <span className={cn("flex-shrink-0", collapsed ? "" : "w-5 flex justify-center")}>
@@ -171,7 +171,7 @@ export default function Sidebar({
                   </button>
                 </TooltipTrigger>
                 {collapsed && (
-                  <TooltipContent side="right" className="bg-zinc-800 text-zinc-100 border-zinc-700 text-[13px]">
+                  <TooltipContent side="right" className="bg-muted text-foreground border-border text-[13px]">
                     {c.label}
                   </TooltipContent>
                 )}
@@ -180,12 +180,12 @@ export default function Sidebar({
           </div>
         </div>
 
-        <Separator className="mx-3 mb-4 bg-zinc-800" style={{ width: "auto" }} />
+        <Separator className="mx-3 mb-4 bg-muted" style={{ width: "auto" }} />
 
         {/* ── SECTIONS */}
         <div className="px-3">
           {!collapsed && (
-            <p className="text-[11px] text-zinc-600 uppercase tracking-widest mb-2 px-1">Sections</p>
+            <p className="text-[11px] text-muted-foreground/70 uppercase tracking-widest mb-2 px-1">Sections</p>
           )}
           <div className="flex flex-col gap-1">
             {SECTIONS.map((s) => (
@@ -197,8 +197,8 @@ export default function Sidebar({
                       "flex items-center rounded-lg transition-colors border",
                       collapsed ? "w-10 h-10 justify-center mx-auto p-0" : "gap-3 px-2 py-2 w-full",
                       section === s.value
-                        ? "bg-zinc-800 border-zinc-600 text-zinc-100"
-                        : "border-transparent text-zinc-500 hover:bg-zinc-800/60 hover:text-zinc-300"
+                        ? "bg-muted border-border text-foreground"
+                        : "border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground/80"
                     )}
                   >
                     <span className={cn("flex-shrink-0", collapsed ? "" : "w-5 flex justify-center")}>
@@ -210,7 +210,7 @@ export default function Sidebar({
                   </button>
                 </TooltipTrigger>
                 {collapsed && (
-                  <TooltipContent side="right" className="bg-zinc-800 text-zinc-100 border-zinc-700 text-[13px]">
+                  <TooltipContent side="right" className="bg-muted text-foreground border-border text-[13px]">
                     {s.label}
                   </TooltipContent>
                 )}

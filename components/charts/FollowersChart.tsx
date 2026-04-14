@@ -23,14 +23,14 @@ export default function FollowersChart({ brand, channel, period }: FilterProps) 
   }, [brand, channel, period])
 
   return (
-    <Card className="bg-zinc-900 border-zinc-800">
+    <Card className="bg-card border-border">
       <CardHeader className="pb-2">
-        <CardTitle className="text-zinc-100 text-[15px]">Followers growth</CardTitle>
-        <CardDescription className="text-zinc-500 text-[13px]">Net new followers per week</CardDescription>
+        <CardTitle className="text-foreground text-[15px]">Followers growth</CardTitle>
+        <CardDescription className="text-muted-foreground text-[13px]">Net new followers per week</CardDescription>
       </CardHeader>
       <CardContent className="px-2 sm:px-6">
         {loading ? (
-          <Skeleton className="h-[140px] w-full bg-zinc-800 rounded-lg" />
+          <Skeleton className="h-[140px] w-full bg-muted rounded-lg" />
         ) : (
           <ChartContainer config={chartConfig} className="aspect-auto h-[140px] w-full">
             <BarChart data={data} margin={{ top: 4, right: 8, bottom: 0, left: 0 }}>
