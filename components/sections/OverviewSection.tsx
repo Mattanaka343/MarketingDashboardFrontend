@@ -22,7 +22,7 @@ export default function OverviewSection({ brand, channel, period }: FilterProps)
       {loading || !overview ? (
         <div className="grid grid-cols-3 gap-3">
           {[0, 1, 2].map((i) => (
-            <div key={i} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 h-[100px] animate-pulse" />
+            <div key={i} className="bg-card border border-border rounded-xl p-4 h-[100px] animate-pulse" />
           ))}
         </div>
       ) : (

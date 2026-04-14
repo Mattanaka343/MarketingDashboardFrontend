@@ -31,7 +31,7 @@ export default function Topbar({ section, period, onPeriodChange }: TopbarProps)
             className={cn(
               "h-7 px-3 text-[12px] rounded-md",
               period === p.value
-                ? "bg-zinc-700 text-foreground hover:bg-zinc-700"
+                ? "bg-accent text-foreground hover:bg-accent"
                 : "text-muted-foreground hover:text-foreground/80"
             )}
           >

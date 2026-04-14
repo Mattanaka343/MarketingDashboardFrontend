@@ -8,10 +8,10 @@ import TermsChart   from "@/components/charts/TermsChart"
 export default function PostsSection({ brand, channel, period }: FilterProps) {
   return (
     <Tabs defaultValue="top">
-      <TabsList className="bg-zinc-900 border border-zinc-800 mb-4">
-        <TabsTrigger value="top"      className="text-[12px] data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-100">Top posts</TabsTrigger>
-        <TabsTrigger value="clusters" className="text-[12px] data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-100">Semantic clusters</TabsTrigger>
-        <TabsTrigger value="terms"    className="text-[12px] data-[state=active]:bg-zinc-700 data-[state=active]:text-zinc-100">Best terms</TabsTrigger>
+      <TabsList className="bg-card border border-border mb-4">
+        <TabsTrigger value="top"      className="text-[12px] data-[state=active]:bg-accent data-[state=active]:text-foreground">Top posts</TabsTrigger>
+        <TabsTrigger value="clusters" className="text-[12px] data-[state=active]:bg-accent data-[state=active]:text-foreground">Semantic clusters</TabsTrigger>
+        <TabsTrigger value="terms"    className="text-[12px] data-[state=active]:bg-accent data-[state=active]:text-foreground">Best terms</TabsTrigger>
       </TabsList>
 
       <TabsContent value="top">
