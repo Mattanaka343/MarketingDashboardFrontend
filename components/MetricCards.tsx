@@ -7,7 +7,7 @@ function Delta({ value, suffix = "%" }: { value: number; suffix?: string }) {
   const up = value >= 0
   return (
     <span className={cn("text-[13px] flex items-center gap-1", up ? "text-emerald-400" : "text-red-400")}>
-      {up ? "↑" : "↓"} {Math.abs(value).toFixed(1)}{suffix}
+      {up ? "↑" : "↓"} {Math.abs(value).toFixed(2)}{suffix}
     </span>
   )
 }
@@ -31,7 +31,7 @@ export function MetricCardsSkeleton() {
 export default function MetricCards({ data }: { data: OverviewMetrics }) {
   const cards = [
     { label: "Impressions",    value: data.impressions.toLocaleString(),          delta: <Delta value={data.impressions_delta} /> },
-    { label: "Engagement rate", value: `${data.engagement_rate.toFixed(1)}%`,     delta: <Delta value={data.engagement_delta} suffix="pp" /> },
+    { label: "Engagement rate", value: `${data.engagement_rate.toFixed(2)}%`,     delta: <Delta value={data.engagement_delta} suffix="pp" /> },
     { label: "Followers gained", value: `+${data.followers_gained.toLocaleString()}`, delta: <Delta value={data.followers_pct} /> },
   ]
 
