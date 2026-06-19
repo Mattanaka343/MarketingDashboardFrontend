@@ -39,7 +39,22 @@ async function post<T_Request,T_Response>(path:string,data:T_Request): Promise<T
     if (!response.ok) throw new Error(`API error ${response.status} on ${path}`)
     const result: T_Response = await response.json()
     return result
-} 
+}
+
+async function postWithQuery<T_Request,T_Response>(path:string,data:T_Request): Promise<T_Response> {
+    const url = new URL(`${BASE}${path}`)
+    Object.entries(data as Record<string, unknown>).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        url.searchParams.set(key, String(value))
+      }
+    })
+    const response = await fetch(url, {
+      method: 'POST',
+    })
+    if (!response.ok) throw new Error(`API error ${response.status} on ${path}`)
+    const result: T_Response = await response.json()
+    return result
+}
 
 export const fetchOverview          = (p: Params) => get<OverviewMetrics>   ("/api/overview/",                      p)
 export const fetchTimeseries        = (p: Params) => get<TimeseriesRow[]>   ("/api/overview/timeseries",            p)
@@ -55,8 +70,8 @@ export const fetchPendingPosts      = (p: Params) => get<PendingPost[]>     ("/a
 export const fetchUnpendingPosts    = (p: Params) => get<UnpendingPost[]>   ("/api/operations/unpendingposts",      p)
 export const fetchMetrics           = (p: Params) => get<MetricRow[]>       ("/api/operations/metrics",             p)
 
-export const postFormat             = (data: Format) => post<Format,Response>   ("/api/operations/format",            data)
-export const postStratPillar        = (data: Pillar) => post<Pillar,Response>   ("/api/operations/stratpillar",       data)
+export const postFormat             = (data: Format) => postWithQuery<Format,Response>   ("/api/operations/format",            data)
+export const postStratPillar        = (data: Pillar & { brand: string }) => postWithQuery<Pillar & { brand: string },Response>   ("/api/operations/stratpillar",       data)
 
-export const updatePosts            = (data: Partial<PostData>) => post<Partial<PostData>,Response>   ("/api/operations/updatependingpost",   data)
+export const updatePosts            = (data: PostData) => postWithQuery<PostData,Response>   ("/api/operations/updatependingpost",   data)
 
