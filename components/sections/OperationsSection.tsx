@@ -116,7 +116,7 @@ export default function OperationsSection({ brand, channel, period }: FilterProp
     setUpdating((s) => ({ ...s, [postId]: true }))
     try {
       await updatePosts({
-        id: postId,
+        post_id: postId,
         format: values.format ?? "",
         strat_pillar: values.strat ?? "",
         content_pillar: values.content ?? "",

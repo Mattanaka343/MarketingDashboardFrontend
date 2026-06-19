@@ -1,4 +1,4 @@
-import type { OverviewMetrics, TimeSeriesRow, FollowersRow, Post, PostData, AIMessage, Metric, Brand, Channel, Period, ClusterPoint,Term,Format,Pillar, PendingPost,UnpendingPost,MetricRow} from "@/types"
+import type { OverviewMetrics, TimeseriesRow, FollowersRow, Post, PostData, AIMessage, Metric, Brand, Channel, Period, ClusterPoint,Term,Format,Pillar, PendingPost,UnpendingPost,MetricRow} from "@/types"
 
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000"
 
@@ -42,7 +42,7 @@ async function post<T_Request,T_Response>(path:string,data:T_Request): Promise<T
 } 
 
 export const fetchOverview          = (p: Params) => get<OverviewMetrics>   ("/api/overview/",                      p)
-export const fetchTimeseries        = (p: Params) => get<TimeSeriesRow[]>   ("/api/overview/timeseries",            p)
+export const fetchTimeseries        = (p: Params) => get<TimeseriesRow[]>   ("/api/overview/timeseries",            p)
 export const fetchFollowers         = (p: Params) => get<FollowersRow[]>    ("/api/overview/followers",             p)
 export const fetchMessage           = (p: Params) => get<AIMessage>         ("/api/overview/aireview",              p)
 export const fetchTopPosts          = (p: Params) => get<Post[]>            ("/api/posts/top",                      p)
