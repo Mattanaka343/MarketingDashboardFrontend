@@ -120,7 +120,7 @@ export default function OperationsSection({ brand, channel, period }: FilterProp
         format: values.format ?? "",
         strat_pillar: values.strat ?? "",
         content_pillar: values.content ?? "",
-      } as any)
+      })
 
       setUnpending((rows) =>
         rows.map((r) =>

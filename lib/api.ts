@@ -58,5 +58,5 @@ export const fetchMetrics           = (p: Params) => get<MetricRow[]>       ("/a
 export const postFormat             = (data: Format) => post<Format,Response>   ("/api/operations/format",            data)
 export const postStratPillar        = (data: Pillar) => post<Pillar,Response>   ("/api/operations/stratpillar",       data)
 
-export const updatePosts            = (data: PostData) => post<PostData,Response>   ("/api/operations/updatependingpost",   data)
+export const updatePosts            = (data: Partial<PostData>) => post<Partial<PostData>,Response>   ("/api/operations/updatependingpost",   data)
 

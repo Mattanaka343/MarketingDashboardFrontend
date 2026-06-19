@@ -87,10 +87,11 @@ export interface MetricRow {
 }
 
 export interface PostData {
-    id:             string
-    strat_pillar:   string
-    content_pillar: string
-    format:         string
+    post_id?:            string
+    id?:                 string
+    strat_pillar?:       string
+    content_pillar?:     string
+    format?:             string
 }
 
 export interface FilterProps {
