@@ -103,7 +103,7 @@ export default function OperationsSection({ brand, channel, period }: FilterProp
   async function handleAddStrategyPillar() {
     if (!newStrategy.trim()) return
     try {
-      await postStratPillar({ pillar: newStrategy.trim() })
+      await postStratPillar({ pillar: newStrategy.trim(), brand })
       const s = await fetchStratPillars({ brand, channel, period })
       setStratPillars((s as any[]).map((x) => (x.pillar ? x.pillar : String(x))))
       setNewStrategy("")
