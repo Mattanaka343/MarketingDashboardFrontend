@@ -16,16 +16,31 @@ const METRICS: { value: Metric; label: string }[] = [
 ]
 
 const chartConfig = {
-  linkedin: { label: "LinkedIn", color: "--primary" },
-  x:        { label: "X",        color: "--chart-4" },
+  linkedin:  { label: "LinkedIn",  color: "--primary" },
+  x:         { label: "X",         color: "--chart-4" },
+  instagram: { label: "Instagram", color: "--chart-2" },
 } satisfies ChartConfig
+
+const CHART_CHANNELS = ["linkedin", "x", "instagram"] as const
 
 export default function TimelineChart({ brand, channel, period }: FilterProps) {
   const [data,    setData]    = React.useState<TimeseriesRow[]>([])
   const [metric,  setMetric]  = React.useState<Metric>("impressions")
   const [loading, setLoading] = React.useState(true)
 
-  const showX = !LINKEDIN_ONLY_BRANDS.includes(brand) && channel !== "lin"
+  const isInstagramAllowed = brand === "tal"
+
+  const visibleChannels = CHART_CHANNELS.filter((key) => {
+    if (key === "linkedin") {
+      return channel === "all" || channel === "lin"
+    }
+
+    if (key === "x") {
+      return !LINKEDIN_ONLY_BRANDS.includes(brand) && (channel === "all" || channel === "x")
+    }
+
+    return isInstagramAllowed && (channel === "all" || channel === "insta")
+  })
 
   React.useEffect(() => {
     setLoading(true)
@@ -73,6 +88,10 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
                   <stop offset="5%"  stopColor="var(--chart-4)" stopOpacity={0.3} />
                   <stop offset="95%" stopColor="var(--chart-4)" stopOpacity={0.0} />
                 </linearGradient>
+                <linearGradient id="fillInstagram" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%"  stopColor="var(--chart-2)" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0.0} />
+                </linearGradient>
               </defs>
               <CartesianGrid vertical={false} stroke="#27272a" />
               <XAxis
@@ -94,9 +113,14 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
                   />
                 }
               />
-              <Area dataKey="linkedin" type="natural" fill="url(#fillLinkedin)" stroke="var(--primary)" strokeWidth={2} />
-              {showX && (
+              {visibleChannels.includes("linkedin") && (
+                <Area dataKey="linkedin" type="natural" fill="url(#fillLinkedin)" stroke="var(--primary)" strokeWidth={2} />
+              )}
+              {visibleChannels.includes("x") && (
                 <Area dataKey="x" type="natural" fill="url(#fillX)" stroke="var(--chart-4)" strokeWidth={2} />
+              )}
+              {visibleChannels.includes("instagram") && (
+                <Area dataKey="instagram" type="natural" fill="url(#fillInstagram)" stroke="var(--chart-2)" strokeWidth={2} />
               )}
               <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>

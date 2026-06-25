@@ -14,10 +14,10 @@ export interface OverviewMetrics {
 }
 
 export interface TimeseriesRow {
-    date:       string
-    linkedin:   number
-    x:          number
-    insta:      number
+    date:           string
+    linkedin:       number
+    x:              number
+    instagram:      number
 }
 
 export interface FollowersRow {
@@ -39,7 +39,7 @@ export interface Post {
 }
 
 export interface ClusterPoint {
-    post_id:         string
+    post_id:    string
     text:       string
     x:          string
     y:          string

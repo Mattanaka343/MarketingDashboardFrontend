@@ -32,6 +32,14 @@ function XIcon({ size = 18 }: { size?: number }) {
   )
 }
 
+function InstagramIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm8.5 2.25a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zm-4.25 1.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" />
+    </svg>
+  )
+}
+
 function AllChannelsIcon({ size = 18 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -42,9 +50,10 @@ function AllChannelsIcon({ size = 18 }: { size?: number }) {
 }
 
 const CHANNELS: { value: Channel; label: string; icon: React.ReactNode }[] = [
-  { value: "all", label: "All channels", icon: <AllChannelsIcon /> },
-  { value: "lin", label: "LinkedIn",     icon: <LinkedInIcon />    },
-  { value: "x",   label: "X (Twitter)",  icon: <XIcon />           },
+  { value: "all",   label: "All channels", icon: <AllChannelsIcon /> },
+  { value: "lin",   label: "LinkedIn",     icon: <LinkedInIcon />    },
+  { value: "x",     label: "X (Twitter)",  icon: <XIcon />           },
+  { value: "insta", label: "Instagram",    icon: <InstagramIcon />   },
 ]
 
 const SECTIONS: { value: Section; label: string; icon: React.ReactNode }[] = [
@@ -69,17 +78,32 @@ export default function Sidebar({
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false)
   const isLinkedInOnly = LINKEDIN_ONLY_BRANDS.includes(brand)
+  const supportsInstagram = brand === "tal"
 
   function handleBrandChange(b: Brand) {
     onBrandChange(b)
+
     if (LINKEDIN_ONLY_BRANDS.includes(b) && channel === "x") {
+      onChannelChange("all")
+      return
+    }
+
+    if (b !== "tal" && channel === "insta") {
       onChannelChange("all")
     }
   }
 
-  const availableChannels = CHANNELS.filter(
-    (c) => !(isLinkedInOnly && c.value === "x")
-  )
+  const availableChannels = CHANNELS.filter((c) => {
+    if (c.value === "x") {
+      return !isLinkedInOnly
+    }
+
+    if (c.value === "insta") {
+      return supportsInstagram
+    }
+
+    return true
+  })
 
   return (
     <TooltipProvider delayDuration={200}>

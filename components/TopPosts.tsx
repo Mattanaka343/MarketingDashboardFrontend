@@ -99,10 +99,12 @@ export default function TopPosts({ brand, channel, period }: FilterProps) {
                   "w-fit text-[10px] border",
                   post.channel === "lin"
                     ? "border-[#0a66c2]/40 text-[#4d9fd6] bg-[#0a66c2]/10"
-                    : "border-border text-muted-foreground bg-muted"
+                    : post.channel === "x"
+                    ? "border-border text-muted-foreground bg-muted"
+                    : "border-pink-400/40 text-pink-300 bg-pink-500/10"
                 )}
               >
-                {post.channel === "lin" ? "LinkedIn" : "X"}
+                {post.channel === "lin" ? "LinkedIn" : post.channel === "x" ? "X" : "Instagram"}
               </Badge>
               <p className="text-[12px] text-muted-foreground leading-relaxed line-clamp-3 flex-1">
                 {post.text}
