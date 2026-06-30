@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { ChevronLeft, ChevronRight, LayoutDashboard, FileText, Settings } from "lucide-react"
+import { useBrandColors } from "@/hooks/use-brand-colors"
 
 // ── Brand logos (put these in /public/logos/)
 const BRANDS: { value: Brand; label: string; logo: string }[] = [
@@ -78,6 +79,7 @@ export default function Sidebar({
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false)
   const isLinkedInOnly = LINKEDIN_ONLY_BRANDS.includes(brand)
+  const brandColors = useBrandColors(brand)
   const supportsInstagram = brand === "tal"
 
   function handleBrandChange(b: Brand) {
@@ -136,9 +138,10 @@ export default function Sidebar({
                       "flex items-center rounded-lg transition-colors border",
                       collapsed ? "w-10 h-10 justify-center mx-auto p-0" : "gap-3 px-2 py-2 w-full",
                       brand === b.value
-                        ? "bg-muted border-border text-foreground"
+                        ? "border-border text-foreground"
                         : "border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground/80"
                     )}
+                    style={brand === b.value ? { borderColor: brandColors.highlight, color: brandColors.highlight } : undefined}
                   >
                     <div className={cn(
                       "relative flex-shrink-0 rounded-md overflow-hidden bg-black",
@@ -183,9 +186,10 @@ export default function Sidebar({
                       "flex items-center rounded-lg transition-colors border",
                       collapsed ? "w-10 h-10 justify-center mx-auto p-0" : "gap-3 px-2 py-2 w-full",
                       channel === c.value
-                        ? "bg-muted border-border text-foreground"
+                        ? "border-border text-foreground"
                         : "border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground/80"
                     )}
+                    style={channel === c.value ? { borderColor: brandColors.highlight, color: brandColors.highlight } : undefined}
                   >
                     <span className={cn("flex-shrink-0", collapsed ? "" : "w-5 flex justify-center")}>
                       {c.icon}
@@ -222,9 +226,10 @@ export default function Sidebar({
                       "flex items-center rounded-lg transition-colors border",
                       collapsed ? "w-10 h-10 justify-center mx-auto p-0" : "gap-3 px-2 py-2 w-full",
                       section === s.value
-                        ? "bg-muted border-border text-foreground"
+                        ? "border-border text-foreground"
                         : "border-transparent text-muted-foreground hover:bg-muted/60 hover:text-foreground/80"
                     )}
+                    style={section === s.value ? { borderColor: brandColors.highlight, color: brandColors.highlight } : undefined}
                   >
                     <span className={cn("flex-shrink-0", collapsed ? "" : "w-5 flex justify-center")}>
                       {s.icon}

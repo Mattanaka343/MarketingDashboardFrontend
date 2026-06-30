@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { cn } from "@/lib/utils"
+import { useBrandColors } from "@/hooks/use-brand-colors"
 
 const METRICS: {value: Metric, label: string}[]= [
   {value:"impressions", label:'Impressions'},
@@ -45,6 +46,7 @@ export default function TopPosts({ brand, channel, period }: FilterProps) {
   const [posts,   setPosts]   = useState<Post[]>([])
   const [loading, setLoading] = useState(true)
   const [metric, setMetric] = useState<Metric>("impressions")
+  const brandColors = useBrandColors(brand)
 
   useEffect(() => {
     setLoading(true)
@@ -101,8 +103,13 @@ export default function TopPosts({ brand, channel, period }: FilterProps) {
                     ? "border-[#0a66c2]/40 text-[#4d9fd6] bg-[#0a66c2]/10"
                     : post.channel === "x"
                     ? "border-border text-muted-foreground bg-muted"
-                    : "border-pink-400/40 text-pink-300 bg-pink-500/10"
+                    : ""
                 )}
+                style={post.channel === "insta" ? { 
+                  borderColor: `${brandColors.highlight}40`, 
+                  color: brandColors.highlight,
+                  backgroundColor: `${brandColors.highlight}10`
+                } : {}}
               >
                 {post.channel === "lin" ? "LinkedIn" : post.channel === "x" ? "X" : "Instagram"}
               </Badge>

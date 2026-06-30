@@ -116,14 +116,44 @@
     --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* Brand-specific colors */
+[data-brand="nvai"] {
+    --brand-background-light: #C6C8CC;
+    --brand-background-dark: #000000;
+    --brand-highlight: #EA8A7B;
+    --brand-primary-graph: #283272;
+    --brand-secondary-graph: #283272;
+}
+
+[data-brand="buis"] {
+    --brand-background-light: #C6C8CC;
+    --brand-background-dark: #000000;
+    --brand-highlight: #F07E2E;
+    --brand-primary-graph: #0653A1;
+    --brand-secondary-graph: #96D4E7;
+}
+
+[data-brand="tal"] {
+    --brand-background-light: #C6C8CC;
+    --brand-background-dark: #000000;
+    --brand-highlight: #F7A700;
+    --brand-primary-graph: #00A0C1;
+    --brand-secondary-graph: #96D4E7;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
-    }
+  }
+  
+  [data-state="active"] {
+    color: var(--trigger-active-color, inherit);
+  }
+  
   body {
     @apply bg-background text-foreground;
-    }
+  }
   html {
     @apply font-sans;
-    }
+  }
 }

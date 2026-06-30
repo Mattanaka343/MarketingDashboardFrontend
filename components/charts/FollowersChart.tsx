@@ -6,6 +6,7 @@ import { FilterProps, FollowersRow } from "@/types"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useBrandColors } from "@/hooks/use-brand-colors"
 
 const chartConfig = {
   followers: { label: "Followers", color: "--chart-1" },
@@ -14,6 +15,7 @@ const chartConfig = {
 export default function FollowersChart({ brand, channel, period }: FilterProps) {
   const [data,    setData]    = useState<FollowersRow[]>([])
   const [loading, setLoading] = useState(true)
+  const brandColors = useBrandColors(brand)
 
   useEffect(() => {
     setLoading(true)
@@ -38,7 +40,7 @@ export default function FollowersChart({ brand, channel, period }: FilterProps) 
               <XAxis dataKey="week_start" tickLine={false} axisLine={false} tick={{ fill: "#71717a", fontSize: 12 }} tickFormatter={(v) => v.slice(5)} />
               <YAxis tickLine={false} axisLine={false} tick={{ fill: "#71717a", fontSize: 13 }} width={36} />
               <ChartTooltip content={<ChartTooltipContent />} cursor={false} />
-              <Bar dataKey="followers" fill="var(--chart-1)" radius={[3, 3, 0, 0]} />
+              <Bar dataKey="followers" fill={brandColors.primaryGraph} radius={[3, 3, 0, 0]} />
             </BarChart>
           </ChartContainer>
         )}

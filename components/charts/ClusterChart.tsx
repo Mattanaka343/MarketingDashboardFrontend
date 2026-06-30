@@ -5,6 +5,7 @@ import { fetchClusters } from "@/lib/api"
 import { Brand, Channel, ClusterPoint } from "@/types"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useBrandColors } from "@/hooks/use-brand-colors"
 
 // Generates visually distinct colors for any number of clusters.
 // Spreads hues evenly across the wheel; alternates lightness so
@@ -18,12 +19,12 @@ function clusterColor(label: string, allLabels: string[]): string {
   return `hsl(${hue}, 72%, ${lightness}%)`
 }
 
-function CustomTooltip({ active, payload }: any) {
+function CustomTooltip({ active, payload, brandColor }: any) {
   if (!active || !payload?.length) return null
   const p = payload[0].payload as ClusterPoint
   return (
     <div className="bg-card border border-border rounded-lg p-3 max-w-[240px] text-[13px] shadow-lg">
-      <p className="text-red-400 font-medium mb-1">{p.cluster}</p>
+      <p style={{ color: brandColor }} className="font-medium mb-1">{p.cluster}</p>
       <p className="text-muted-foreground leading-relaxed line-clamp-3">{p.text}</p>
     </div>
   )
@@ -32,6 +33,7 @@ function CustomTooltip({ active, payload }: any) {
 export default function ClusterChart({ brand, channel }: { brand: Brand; channel: Channel }) {
   const [points,  setPoints]  = useState<ClusterPoint[]>([])
   const [loading, setLoading] = useState(true)
+  const brandColors = useBrandColors(brand)
 
   useEffect(() => {
     setLoading(true)
@@ -69,7 +71,7 @@ export default function ClusterChart({ brand, channel }: { brand: Brand; channel
             <ScatterChart margin={{ top: 8, right: 8, bottom: 0, left: 0 }}>
               <XAxis dataKey="x" tick={{ fill: "#52525b", fontSize: 12 }} tickLine={false} axisLine={false} />
               <YAxis dataKey="y" tick={{ fill: "#52525b", fontSize: 12 }} tickLine={false} axisLine={false} width={32} />
-              <Tooltip content={<CustomTooltip />} cursor={{ strokeDasharray: "3 3", stroke: "#3f3f46" }} />
+              <Tooltip content={<CustomTooltip brandColor={brandColors.highlight} />} cursor={{ strokeDasharray: "3 3", stroke: "#3f3f46" }} />
               {grouped.map((g) => (
                 <Scatter key={g.label} name={g.label} data={g.points} fill={g.color}>
                   {g.points.map((point) => (

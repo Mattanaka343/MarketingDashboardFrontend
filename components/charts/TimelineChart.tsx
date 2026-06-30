@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useBrandColors } from "@/hooks/use-brand-colors"
 
 const METRICS: { value: Metric; label: string }[] = [
   { value: "impressions",    label: "Impressions"     },
@@ -27,6 +28,7 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
   const [data,    setData]    = React.useState<TimeseriesRow[]>([])
   const [metric,  setMetric]  = React.useState<Metric>("impressions")
   const [loading, setLoading] = React.useState(true)
+  const brandColors = useBrandColors(brand)
 
   const isInstagramAllowed = brand === "tal"
 
@@ -81,16 +83,16 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="fillLinkedin" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="var(--primary)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="var(--primary)" stopOpacity={0.0} />
+                  <stop offset="5%"  stopColor={brandColors.primaryGraph} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={brandColors.primaryGraph} stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="fillX" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="var(--chart-4)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="var(--chart-4)" stopOpacity={0.0} />
+                  <stop offset="5%"  stopColor={brandColors.secondaryGraph} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={brandColors.secondaryGraph} stopOpacity={0.0} />
                 </linearGradient>
                 <linearGradient id="fillInstagram" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%"  stopColor="var(--chart-2)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0.0} />
+                  <stop offset="5%"  stopColor={brandColors.highlight} stopOpacity={0.3} />
+                  <stop offset="95%" stopColor={brandColors.highlight} stopOpacity={0.0} />
                 </linearGradient>
               </defs>
               <CartesianGrid vertical={false} stroke="#27272a" />
@@ -114,13 +116,13 @@ export default function TimelineChart({ brand, channel, period }: FilterProps) {
                 }
               />
               {visibleChannels.includes("linkedin") && (
-                <Area dataKey="linkedin" type="natural" fill="url(#fillLinkedin)" stroke="var(--primary)" strokeWidth={2} />
+                <Area dataKey="linkedin" type="natural" fill="url(#fillLinkedin)" stroke={brandColors.primaryGraph} strokeWidth={2} />
               )}
               {visibleChannels.includes("x") && (
-                <Area dataKey="x" type="natural" fill="url(#fillX)" stroke="var(--chart-4)" strokeWidth={2} />
+                <Area dataKey="x" type="natural" fill="url(#fillX)" stroke={brandColors.secondaryGraph} strokeWidth={2} />
               )}
               {visibleChannels.includes("instagram") && (
-                <Area dataKey="instagram" type="natural" fill="url(#fillInstagram)" stroke="var(--chart-2)" strokeWidth={2} />
+                <Area dataKey="instagram" type="natural" fill="url(#fillInstagram)" stroke={brandColors.highlight} strokeWidth={2} />
               )}
               <ChartLegend content={<ChartLegendContent />} />
             </AreaChart>

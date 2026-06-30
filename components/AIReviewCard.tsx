@@ -6,11 +6,13 @@ import { fetchMessage } from "@/lib/api"
 import { FilterProps } from "@/types"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useBrandColors } from "@/hooks/use-brand-colors"
 
 export default function AIReviewCard({ brand, channel, period }: FilterProps) {
   const [message, setMessage] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [loaded, setLoaded] = useState(false)
+  const brandColors = useBrandColors(brand)
 
   function loadReview() {
     setLoading(true)
@@ -35,7 +37,8 @@ export default function AIReviewCard({ brand, channel, period }: FilterProps) {
             <p className="text-sm text-muted-foreground">Press the button to load the AI review.</p>
             <button
               onClick={loadReview}
-              className="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+              className="inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+              style={{ backgroundColor: brandColors.highlight }}
               disabled={loading}
             >
               {loading ? "Loading review..." : "Load AI review"}

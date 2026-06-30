@@ -4,10 +4,12 @@ import { fetchTerms } from "@/lib/api"
 import { FilterProps, Term } from "@/types"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useBrandColors } from "@/hooks/use-brand-colors"
 
 export default function TermsChart({ brand, channel, period }: FilterProps) {
   const [terms,   setTerms]   = useState<Term[]>([])
   const [loading, setLoading] = useState(true)
+  const brandColors = useBrandColors(brand)
 
   useEffect(() => {
     setLoading(true)
@@ -37,7 +39,7 @@ export default function TermsChart({ brand, channel, period }: FilterProps) {
                 <div className="flex-1 h-1.5 bg-muted rounded-full overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-500"
-                    style={{ width: `${t.score * 100}%`, background: `hsl(${Math.round(t.score * 20)}, 75%, ${Math.round(40 + t.score * 20)}%)` }}
+                    style={{ width: `${t.score * 100}%`, background: brandColors.highlight }}
                   />
                 </div>
                 <span className="text-[12px] text-muted-foreground w-8 text-right">{Math.round(t.score * 100)}</span>
