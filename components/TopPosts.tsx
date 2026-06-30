@@ -111,7 +111,7 @@ export default function TopPosts({ brand, channel, period }: FilterProps) {
                   backgroundColor: `${brandColors.highlight}10`
                 } : {}}
               >
-                {post.channel === "lin" ? "LinkedIn" : post.channel === "x" ? "X" : "Instagram"}
+                {post.channel === "LinkedIn" ? "LinkedIn" : post.channel === "X" ? "X" : "Instagram"}
               </Badge>
               <p className="text-[12px] text-muted-foreground leading-relaxed line-clamp-3 flex-1">
                 {post.text}
