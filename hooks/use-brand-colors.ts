@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getBrandColors } from "@/lib/brandColors"
 import { Brand } from "@/types"
+import type { CSSProperties } from "react"
 
 export function useBrandColors(brand: Brand) {
   const [colors, setColors] = useState(() => getBrandColors(brand))
