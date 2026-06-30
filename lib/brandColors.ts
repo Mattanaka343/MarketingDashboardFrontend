@@ -19,7 +19,7 @@ export const BRAND_COLORS: Record<Brand, BrandColors> = {
     backgroundDark: "#000000",
     highlight: "#EA8A7B",
     primaryGraph: "#283272",
-    secondaryGraph: "#283272",
+    secondaryGraph: "#A9B1DA",
   },
   buis: {
     backgroundLight: "#C6C8CC",
